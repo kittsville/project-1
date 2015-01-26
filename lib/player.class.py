@@ -10,10 +10,10 @@ class Player:
     def __init__(self, xPos, yPos):
         pygame.sprite.Sprite.__init__(self)
 
-        # Set height, width
+        # Load image and set width, height
         self.image, self.rect = pygame.image.load("assests/robot.png").convert_alpha()
 
-        # Make our top-left corner the passed-in location.
+        # Make our top-left corner the passed-in location
         self.rect.x = xPos
         self.rect.y = yPos
 
@@ -22,8 +22,7 @@ class Player:
         self.change_x += xPos
         self.change_y += yPos
 
-    # Update the location
+    # Update the location of the player
     def update(self):
-        """ Update position of the player """
         self.rect.x += self.change_x
         self.rect.y += self.change_y
