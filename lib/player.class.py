@@ -2,7 +2,7 @@ import pygame
 
 # Handles player position etc.
 class Player:
-    # Set speed vector
+    # Set movement vector
     change_x = 0
     change_y = 0
 
@@ -17,8 +17,8 @@ class Player:
         self.rect.x = xPos
         self.rect.y = yPos
 
-    # Change the speed of the player
-    def change_speed(self, xPos, yPos):
+    # Change the location of the player
+    def move_bot(self, xPos, yPos):
         self.change_x += xPos
         self.change_y += yPos
 
