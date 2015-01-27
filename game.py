@@ -1,13 +1,13 @@
-import pygame       # Handles user input and game output
-import sys          # Used to quit game
-import lib.matrix   # Generates game grid
-import lib.player   # Manages player position and properties
+import pygame               # Handles user input and game output
+import sys                  # System specific parameters and functions
+sys.path.insert(0, 'lib/')  # Adds class library as first directory searched when importing
+import matrix               # Generates game grid
+import player               # Manages player position and properties
 
-''''To create an instance of a class from the library call it from its parent file and directory
-e.g. to call the Matrix class you need to do do myInstance = lib.matrix.Matrix
-I'm liking Python less by the minute'''
+# To call a class from the library call it from its parent file e.g. matrix.Matrix(5, 5)
 
-
+# Allows you to access stuff like KEYDOWN directly rather than via pygame.KEYDOWN
+from pygame.locals import *
 
 # Call this function so the Pygame library can initialize itself
 pygame.init()
