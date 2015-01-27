@@ -19,8 +19,8 @@ class Player:
 
     # Change the location of the player
     def move_bot(self, xPos, yPos):
-        self.change_x += xPos
-        self.change_y += yPos
+        self.change_x = (xPos - self.rect.x)
+        self.change_y = (yPos - self.rect.y)
 
     # Update the location of the player
     def update(self):
