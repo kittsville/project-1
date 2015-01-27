@@ -1,5 +1,7 @@
 import pygame
 
+import sys
+
 # Call this function so the Pygame library can initialize itself
 pygame.init()
 
@@ -12,14 +14,15 @@ pygame.display.set_caption("Wumpus World Simulation")
 WHITE = (255, 255, 255)
 
 clock = pygame.time.Clock()
-done = False
 
-while not done:
+# Main game loop
+while True:
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            done = True
-
+            print 'here'
+            pygame.display.quit()
+            sys.exit()
 
     # Clear screen
     screen.fill(WHITE)
