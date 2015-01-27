@@ -17,7 +17,8 @@ class Player:
         self.rect.x = xPos
         self.rect.y = yPos
 
-    # Change the location of the player
+    # Change the location of the player. Assumed that xPos and yPos are postions in the 
+    # matrix
     def move_bot(self, xPos, yPos):
         self.change_x = (xPos - self.rect.x)
         self.change_y = (yPos - self.rect.y)
