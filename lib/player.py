@@ -3,8 +3,8 @@ import pygame
 # Handles player position etc.
 class Player(pygame.sprite.Sprite):
     # Set movement vector
-    change_x = 0
-    change_y = 0
+    changeX = 0
+    changeY = 0
 
     # Construct player robot at given location
     def __init__(self, xPos, yPos):
@@ -21,11 +21,11 @@ class Player(pygame.sprite.Sprite):
 
     # Change the location of the player. Assumed that xPos and yPos are postions in the 
     # matrix
-    def move_bot(self, xPos, yPos):
-        self.change_x = (xPos - self.rect.x)
-        self.change_y = (yPos - self.rect.y)
+    def moveBot(self, xPos, yPos):
+        self.changeX = (xPos - self.rect.x)
+        self.changeY = (yPos - self.rect.y)
 
     # Update the location of the player
     def update(self):
-        self.rect.x += self.change_x
-        self.rect.y += self.change_y
+        self.rect.x += self.changeX
+        self.rect.y += self.changeY
