@@ -7,7 +7,7 @@ class Player(pygame.sprite.Sprite):
     changeY = 0
 
     # Construct player robot at given location
-    def __init__(self, xPos, yPos):
+    def __init__(self, xPos, yPos, gridSize):
         # Call the parent class (Sprite) constructor
         pygame.sprite.Sprite.__init__(self)
 
@@ -19,13 +19,30 @@ class Player(pygame.sprite.Sprite):
         self.rect.x = xPos
         self.rect.y = yPos
 
-    # Change the location of the player. Assumed that xPos and yPos are postions in the 
-    # matrix
-    def moveBot(self, xPos, yPos):
-        self.changeX = (xPos - self.rect.x)
-        self.changeY = (yPos - self.rect.y)
+        self.gridSize = gridSize
 
-    # Update the location of the player
+    # Move the player to the grid above
+    def moveUp(self):
+        self.changeY = -self.gridSize
+
+    # Move the player to the grid below
+    def moveDown(self):
+        self.changeY = +self.gridSize
+
+    # Move the player to the grid to the left
+    def moveLeft(self):
+        self.changeX = -self.gridSize
+
+    # Move the player to the grid to the right
+    def moveRight(self):
+        self.changeX = +self.gridSize
+
+    # Update the location of the player if new location is in matrix
     def update(self):
+        # TODO: check if self.rect.x + changeX would be in a valid grid. Same for y also.
         self.rect.x += self.changeX
         self.rect.y += self.changeY
+
+        # Reset movement
+        self.changeY = 0
+        self.changeX = 0
