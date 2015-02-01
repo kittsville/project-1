@@ -3,6 +3,7 @@ import sys                  # System specific parameters and functions
 sys.path.insert(0, 'lib/')  # Adds class library as first directory searched when importing
 import matrix               # Generates game grid
 import player               # Manages player position and properties
+import menu                 # Generates menu displayed at game launch and if game is paused
 
 # To call a class from the library call it from its parent file e.g. matrix.Matrix(5, 5)
 
@@ -18,24 +19,71 @@ screen = pygame.display.set_mode([800, 600])
 # Set the title of the window
 pygame.display.set_caption("Wumpus World Simulation")
 
-WHITE = (255, 255, 255)
+# Sets game background colour, feel free to change!
+global BACKGROUND
+BACKGROUND = (42, 42, 42)
+
+screen.fill(BACKGROUND)
 
 clock = pygame.time.Clock()
+
+# Creates all game menus (currently just start menu)
+startMenu = menu.Menu(['Start','Options','Quit'], screen)
+
+# Activates start menu, so it displays on game start up
+startMenu.active = True
+
+# Allows held keys to act as multiple key presses. After 200ms delay, every 69ms the held key will generate a new key press
+pygame.key.set_repeat(199,69)
+
+pygame.display.update()
 
 # Main game loop
 while True:
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            print 'here'
+            print 'Quiting Game'
             pygame.display.quit()
             sys.exit()
+        
+        # If user is currently in start menu
+        if startMenu.active:
+            if event.type == KEYDOWN:
+                # If up was pressed, selects next menu item up
+                if event.key == K_UP:
+                    startMenu.draw(-1)
+                
+                # If down was pressed, selects next menu item down
+                elif event.key == K_DOWN:
+                    startMenu.draw(1)
+                    
+                # If Enter was pressed, performs action of currently selected menu item
+                elif event.key == K_RETURN:
+                    # Gets currently selected menu item
+                    selectedMenuItem = startMenu.getSelectedMenuItem()
+                    
+                    # If start was selected, launch game
+                    if selectedMenuItem == 0:#here is the Menu class function
+                        print 'Start selected'
+                    
+                    # If options were selected, loads options menu
+                    elif selectedMenuItem == 1:
+                        print 'Options selected'
+                    
+                    # If quit was selected, quits game
+                    elif selectedMenuItem == 2:
+                        pygame.display.quit()
+                        sys.exit()
+            
+            startMenu.draw()        
+            pygame.display.update()
+        else:
+            # Clear screen
+            screen.fill(BACKGROUND)
 
-    # Clear screen
-    screen.fill(WHITE)
-
-    # Flip screen
-    pygame.display.flip()
+            # Flip screen
+            pygame.display.flip()
 
     # Pause
     clock.tick(60)
