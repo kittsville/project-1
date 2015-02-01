@@ -1,4 +1,5 @@
-import pygame       # Handles user input and game output
+import pygame               # Handles user input and game output
+from pygame.locals import * # Allows you to access stuff like KEYDOWN directly rather than via pygame.KEYDOWN
 
 # Creates a fullscreen menu and allows selection of items from said menu
 # The term 'item', used in documentation, refers to a single entry in a menu e.g. 'Options'
@@ -56,6 +57,13 @@ class Menu:
         self.windowSurface  = windowSurface
         self.menuItemCount  = len(self.menuItems)
         self.drawMenuItems()
+    
+    # Changes selected menu item based on up/down key press
+    def updateSelectedItem(self, keyPress ):
+        if keyPress == K_UP:
+            self.draw(-1)
+        elif keyPress == K_DOWN:
+            self.draw(1)
     
     # Updates currently selected menu item based on keyboard input
     def draw(self, changePosition=0):

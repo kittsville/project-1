@@ -50,16 +50,11 @@ while True:
         # If user is currently in start menu
         if startMenu.active:
             if event.type == KEYDOWN:
-                # If up was pressed, selects next menu item up
-                if event.key == K_UP:
-                    startMenu.draw(-1)
+                # Updates selected menu item based on key press
+                startMenu.updateSelectedItem( event.key )
                 
-                # If down was pressed, selects next menu item down
-                elif event.key == K_DOWN:
-                    startMenu.draw(1)
-                    
                 # If Enter was pressed, performs action of currently selected menu item
-                elif event.key == K_RETURN:
+                if event.key == K_RETURN:
                     # Gets currently selected menu item
                     selectedMenuItem = startMenu.getSelectedMenuItem()
                     
