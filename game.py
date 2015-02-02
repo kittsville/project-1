@@ -52,24 +52,24 @@ while True:
             if event.type == KEYDOWN:
                 # Updates selected menu item based on key press
                 startMenu.updateSelectedItem( event.key )
+            
+            # If user has pressed Enter, perform action of whichever menu item was selected
+            if (event.type == KEYDOWN and event.key == K_RETURN) or event.type == MOUSEBUTTONDOWN:
+                # Fetches menu item selected when enter was pressed, or menu item that was clicked
+                selectedMenuItem = startMenu.getSelectedMenuItem( event )
                 
-                # If Enter was pressed, performs action of currently selected menu item
-                if event.key == K_RETURN:
-                    # Gets currently selected menu item
-                    selectedMenuItem = startMenu.getSelectedMenuItem()
-                    
-                    # If start was selected, launch game
-                    if selectedMenuItem == 0:#here is the Menu class function
-                        print 'Start selected'
-                    
-                    # If options were selected, loads options menu
-                    elif selectedMenuItem == 1:
-                        print 'Options selected'
-                    
-                    # If quit was selected, quits game
-                    elif selectedMenuItem == 2:
-                        pygame.display.quit()
-                        sys.exit()
+                # If start was selected, launch game
+                if selectedMenuItem is 0:
+                    print 'Start selected'
+                
+                # If options were selected, loads options menu
+                elif selectedMenuItem is 1:
+                    print 'Options selected'
+                
+                # If quit was selected, quits game
+                elif selectedMenuItem is 2:
+                    pygame.display.quit()
+                    sys.exit()
             
             startMenu.draw()        
             pygame.display.update()

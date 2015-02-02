@@ -48,9 +48,21 @@ class Menu:
         
     def setFont(self, path):
         self.fontPath = path
+    
+    # Returns array position of menu item that was just selected
+    def getSelectedMenuItem(self, event):
+        if event.type == KEYDOWN and event.key == K_RETURN:
+            return self.selectedMenuItem
+        elif event.type == MOUSEBUTTONDOWN and event.button == 1 and event.pos >= self.drawPosition:
+            # Menu item positions are relative to the menu's draw position. Modifying the cursor position by the menu offset fixes this
+            event.pos = ( event.pos[0] - self.drawPosition[0], event.pos[1] - self.drawPosition[1] )
         
-    def getSelectedMenuItem(self):
-        return self.selectedMenuItem
+            # Loops through menu items, checking if click occurred in menu item's area
+            for i in xrange(self.menuItemCount):
+                if self.menuItemObjects[i].itemRect.collidepoint( event.pos ):
+                    return i
+        
+        return False
     
     def __init__(self, menuItems, windowSurface):
         self.menuItems      = menuItems
