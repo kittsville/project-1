@@ -55,11 +55,11 @@ class Menu:
             return self.selectedMenuItem
         elif event.type == MOUSEBUTTONDOWN and event.button == 1 and event.pos >= self.drawPosition:
             # Menu item positions are relative to the menu's draw position. Modifying the cursor position by the menu offset fixes this
-            event.pos = ( event.pos[0] - self.drawPosition[0], event.pos[1] - self.drawPosition[1] )
+            pos = ( event.pos[0] - self.drawPosition[0], event.pos[1] - self.drawPosition[1] )
         
             # Loops through menu items, checking if click occurred in menu item's area
             for i in xrange(self.menuItemCount):
-                if self.menuItemObjects[i].itemRect.collidepoint( event.pos ):
+                if self.menuItemObjects[i].itemRect.collidepoint( pos ):
                     return i
         
         return False
