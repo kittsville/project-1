@@ -60,7 +60,13 @@ while True:
                 
                 # If start was selected, launch game
                 if selectedMenuItem is 0:
-                    print 'Start selected'
+                    # Turns off start menu
+                    #startMenu.active = False # Commented out so you can keep generating grids
+                    
+                    # Generates game grid
+                    gameGrid = matrix.Matrix(8, 8)
+                    
+                    # From here on, grid is ready for player
                 
                 # If options were selected, loads options menu
                 elif selectedMenuItem is 1:
