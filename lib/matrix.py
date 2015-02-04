@@ -1,10 +1,11 @@
-import pygame               # Handles user input and game output
-from random import randint  # Used to spread obstacles and stars evenly across the game grid
+import pygame                               # Handles user input and game output
+from random import randint                  # Used to spread obstacles and stars evenly across the game grid
 
 # Generates the game grid and handles interactions with it
 class Matrix:
     grid                = []                # Game grid
     gridObjects         = []                # Physical implementation of grid. Used to render self.grid
+    goalLocation        = []                # Location of player goal, where the player must go having collected all the stars
     gameSurface         = pygame.Surface    # Placeholder game surface to draw game grid on
     Width               = 0                 # Width of grid in number of grid squares
     Height              = 0                 # Height of grid in number of grid squares
@@ -18,7 +19,7 @@ class Matrix:
     # Holds spatial data of each game grid square
     class gridSquare:
         squareRect  = pygame.Rect       # Holds square's coordinates
-
+    
     # Generates game grid on matrix initialisation
     def __init__(self, mWidth, mHeight, gameSurface):
         self.Width          = mWidth
@@ -31,15 +32,14 @@ class Matrix:
         
         obstacleCount       = 0                                             # Number of obstacle blocks placed in the grid so far
         starCount           = 0                                             # Number of stars placed in the grid so far
-        
         obstacleThreshold   = self.obstacleDensity * 10                     # Modifies density for use by the random obstacle placer
         starThreshold       = self.starDensity * 10                         # Modifies density for use by the random star placer
+        self.grid           = []                                            # Reset grid
         
         print 'Generating Grid' # Debugging code, leave for now
         
         for y in range(0, mHeight):
             row = []
-
             for x in range(0, mWidth):
                 if obstacleCount < maxObstacles and randint(1, 11) < obstacleThreshold:
                     row.append(1)
@@ -49,10 +49,13 @@ class Matrix:
                     row.append(0)
 
             self.grid.append(row)
-            print row # Debugging, leave for now
         
-        self.draw()
-
+        # Adds the goal, the square the player must travel to on level completion
+        self.addGoal(mWidth, mHeight)
+        for y in range(0, mHeight):
+            v = self.grid[y]
+            print v
+    
     # Returns if a wall exists at the given position
     def isWall(self,xPos, yPos):
         if self.grid[yPos][xPos] == 1:
@@ -60,13 +63,26 @@ class Matrix:
         else:
             return False
     
+    #Checks if the space it is attempting to occupy is a blank spot
+    #if it isn't then it recursively calls itself till it finds a empty spot
+    def addGoal(self, mWidth, mHeight):
+        print mWidth, " ", mHeight
+        x = mWidth - 1
+        y = mHeight - 1
+        x = randint(0, x)
+        y = randint(0, y)
+        check_row = self.grid[y]
+        if check_row[x] == 0:
+            check_row[x] = 3
+            self.grid[y] = check_row
+            self.goalLocation = [x, y]
+        else:
+            self.addGoal(mWidth, mHeight)
+    
     # Renders game grid to display
     def draw(self):
         # Creates surface to render game grid to
         gridSurface = pygame.Surface((self.pixelWidth, self.pixelHeight))
-        
-        # Gets background colour from globals and fills screen
-        gridSurface.fill(( 0, 0, 0 )) # replace with proper bg
         
         # Sets vertical starting point (in pixels)
         vStart = self.pixelMargin
@@ -107,7 +123,3 @@ class Matrix:
             
             # Increases vertical starting point
             vStart += self.gridSquareSize + 1
-        
-        
-        gridSurface
-        
