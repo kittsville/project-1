@@ -61,10 +61,10 @@ while True:
                 # If start was selected, launch game
                 if selectedMenuItem is 0:
                     # Turns off start menu
-                    #startMenu.active = False # Commented out so you can keep generating grids
+                    startMenu.active = False
                     
                     # Generates game grid
-                    gameGrid = matrix.Matrix(8, 8)
+                    gameGrid = matrix.Matrix(8, 8, screen)
                     
                     # From here on, grid is ready for player
                 
@@ -82,7 +82,10 @@ while True:
         else:
             # Clear screen
             screen.fill(BACKGROUND)
-
+            
+            # Draws current game grid to screen, necessary to keep it displayed to propagate updates to player position
+            gameGrid.draw()
+            
             # Flip screen
             pygame.display.flip()
 
