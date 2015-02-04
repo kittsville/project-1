@@ -64,6 +64,7 @@ class Menu:
         
         return False
     
+    # Generates a menu, given an array on the names of the menu items and the game surface to render them to
     def __init__(self, menuItems, windowSurface):
         self.menuItems      = menuItems
         self.windowSurface  = windowSurface
@@ -100,12 +101,14 @@ class Menu:
             menu.blit(self.menuItemObjects[i].gameSurface,self.menuItemObjects[i].itemRect)
         self.windowSurface.blit(menu,self.drawPosition)
         return self.selectedMenuItem
-
+    
+    # Draws each menu item below the previous one, with the entire menu being horizontally and vertically centred in the game screen
     def drawMenuItems(self):
         changePositioniecie = 0
         self.menuHeight     = 0
         self.font           = pygame.font.Font(self.fontPath, self.fontSize)
         
+        # Loops over menu items, rendering them to the screen
         for i in xrange(self.menuItemCount):
             self.menuItemObjects.append(self.menuItem())
             self.menuItemObjects[i].text = self.menuItems[i]
