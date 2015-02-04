@@ -18,6 +18,8 @@ class Matrix:
         obstacleThreshold   = self.obstacleDensity * 10                 # Modifies density for use by the random obstacle placer
         starThreshold       = self.starDensity * 10                     # Modifies density for use by the random star placer
 
+        self.grid           = []                                        # Reset grid
+
         print 'Generating Grid' # Debugging code, leave for now
         
         for y in range(0, mHeight):
