@@ -42,7 +42,7 @@ class Player(pygame.sprite.Sprite):
     # Update the location of the player if new location is in matrix
     def update(self):
         # temporary location to check if there is a wall before updating real location
-        location = self.currentLocation
+        location = list(self.currentLocation)
 
         if self.changeX != 0 or self.changeY != 0:
             # check if location is inside the game grid
@@ -51,14 +51,12 @@ class Player(pygame.sprite.Sprite):
                 location[1] += self.changeY
                 # check if place it would move to is a wall
                 if not self.gameGrid.isWall(location[0], location[1]):
-                    print("no wall at {}".format(location))
-                    self.currentLocation = location
+                    print("no wall at {}".format(location))  # for debugging purposes
+                    self.currentLocation = list(location)
                     self.rect.x += self.changeX*(self.gameGrid.gridSquareSize + 1)
                     self.rect.y += self.changeY*(self.gameGrid.gridSquareSize + 1)
                 else:
-                    print("wall at {}".format(self.currentLocation)) # for debugging purposes
-                    self.currentLocation[0] -= self.changeX
-                    self.currentLocation[1] -= self.changeY
+                    print("wall at {}".format(self.currentLocation))  # for debugging purposes
 
         # Reset movement
         self.changeX = 0
