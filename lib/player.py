@@ -2,8 +2,6 @@ import pygame
 
 # Handles player position etc.
 class Player(pygame.sprite.Sprite):
-    gridSquareSizePlusBorder = 33  # Height and width, in pixels, of each game grid square plus the one pixel border
-
     # Construct player robot at given location
     def __init__(self, gridX, gridY, matrix):
         # Call the parent class (Sprite) constructor
@@ -56,8 +54,8 @@ class Player(pygame.sprite.Sprite):
                 if not self.gameGrid.isWall(location[0], location[1]):
                     print("no wall at {}".format(location))
                     self.currentLocation = location
-                    self.rect.x += self.changeX*Player.gridSquareSizePlusBorder
-                    self.rect.y += self.changeY*Player.gridSquareSizePlusBorder
+                    self.rect.x += self.changeX*(self.gameGrid.gridSquareSize+1)
+                    self.rect.y += self.changeY*(self.gameGrid.gridSquareSize+1)
                 else:
                     print("wall at {}".format(self.currentLocation)) # for debugging purposes
                     self.currentLocation[0] -= self.changeX
