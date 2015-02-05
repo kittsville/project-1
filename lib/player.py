@@ -2,12 +2,10 @@ import pygame
 
 # Handles player position etc.
 class Player(pygame.sprite.Sprite):
-    # Set movement vector
-    changeX = 0
-    changeY = 0
+    gridSquareSizePlusBorder = 33  # Height and width, in pixels, of each game grid square plus the one pixel border
 
     # Construct player robot at given location
-    def __init__(self, xPos, yPos, gridSize):
+    def __init__(self, gridX, gridY, matrix):
         # Call the parent class (Sprite) constructor
         pygame.sprite.Sprite.__init__(self)
 
@@ -16,33 +14,55 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
 
         # Make our top-left corner the passed-in location
-        self.rect.x = xPos
-        self.rect.y = yPos
+        self.rect.x = gridX*33
+        self.rect.y = gridY*33
 
-        self.gridSize = gridSize
+        # Set movement vector
+        self.changeX = 0
+        self.changeY = 0
+
+        # get matrix and set current location
+        self.gameGrid = matrix
+        self.currentLocation = [gridX, gridY]
 
     # Move the player to the grid above
     def moveUp(self):
-        self.changeY = -self.gridSize
+        self.changeY = -1
 
     # Move the player to the grid below
     def moveDown(self):
-        self.changeY = +self.gridSize
+        self.changeY = 1
 
     # Move the player to the grid to the left
     def moveLeft(self):
-        self.changeX = -self.gridSize
+        self.changeX = -1
 
     # Move the player to the grid to the right
     def moveRight(self):
-        self.changeX = +self.gridSize
+        self.changeX = 1
 
     # Update the location of the player if new location is in matrix
     def update(self):
-        # TODO: check if self.rect.x + changeX would be in a valid grid. Same for y also.
-        self.rect.x += self.changeX
-        self.rect.y += self.changeY
+        # temporary location to check if there is a wall before updating real location
+        location = self.currentLocation
+
+        if self.changeX != 0 or self.changeY != 0:
+            location[0] += self.changeX
+            location[1] += self.changeY
+
+            # check if location is inside the game grid
+            if (0 <= location[0] < self.gameGrid.Width) and (0 <= location[0] < self.gameGrid.Width):
+                # check if place it would move to is a wall
+                if not self.gameGrid.isWall(location[0], location[1]):
+                    print("no wall at {}".format(location))
+                    self.currentLocation = location
+                    self.rect.x += self.changeX*Player.gridSquareSizePlusBorder
+                    self.rect.y += self.changeY*Player.gridSquareSizePlusBorder
+                else:
+                    print("wall at {}".format(self.currentLocation)) # for debugging purposes
+                    self.currentLocation[0] -= self.changeX
+                    self.currentLocation[1] -= self.changeY
 
         # Reset movement
-        self.changeY = 0
         self.changeX = 0
+        self.changeY = 0

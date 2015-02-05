@@ -36,6 +36,9 @@ startMenu.active = True
 # Allows held keys to act as multiple key presses. After 200ms delay, every 69ms the held key will generate a new key press
 pygame.key.set_repeat(199,69)
 
+# create sprites list which the player will be in
+active_sprites = pygame.sprite.Group()
+
 pygame.display.update()
 
 # Main game loop
@@ -67,6 +70,10 @@ while True:
                     gameGrid = matrix.Matrix(8, 8, screen)
                     
                     # From here on, grid is ready for player
+                    # Need to add ability to set player location using mouse
+                    # Generate player and add to to sprites list
+                    player = player.Player(0, 0, gameGrid)
+                    active_sprites.add(player)
                 
                 # If options were selected, loads options menu
                 elif selectedMenuItem is 1:
@@ -80,12 +87,29 @@ while True:
             startMenu.draw()        
             pygame.display.update()
         else:
+            # player movement
+            if event.type == KEYDOWN:
+                if event.key == K_UP:
+                    player.moveUp()
+                elif event.key == K_DOWN:
+                    player.moveDown()
+                elif event.key == K_LEFT:
+                    player.moveLeft()
+                elif event.key == K_RIGHT:
+                    player.moveRight()
+
+                # update player location
+                player.update()
+
             # Clear screen
             screen.fill(BACKGROUND)
-            
+
             # Draws current game grid to screen, necessary to keep it displayed to propagate updates to player position
             gameGrid.draw()
-            
+
+            # draw player
+            active_sprites.draw(screen)
+
             # Flip screen
             pygame.display.flip()
 
