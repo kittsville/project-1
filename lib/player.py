@@ -12,8 +12,8 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
 
         # Make our top-left corner the passed-in location
-        self.rect.x = gridX*33
-        self.rect.y = gridY*33
+        self.rect.x = gridX*(matrix.gridSquareSize + 1)
+        self.rect.y = gridY*(matrix.gridSquareSize +1)
 
         # Set movement vector
         self.changeX = 0
@@ -45,17 +45,16 @@ class Player(pygame.sprite.Sprite):
         location = self.currentLocation
 
         if self.changeX != 0 or self.changeY != 0:
-            location[0] += self.changeX
-            location[1] += self.changeY
-
             # check if location is inside the game grid
-            if (0 <= location[0] < self.gameGrid.Width) and (0 <= location[0] < self.gameGrid.Width):
+            if (0 <= location[0] + self.changeX < self.gameGrid.Width) and (0 <= location[1] + self.changeY < self.gameGrid.Height):
+                location[0] += self.changeX
+                location[1] += self.changeY
                 # check if place it would move to is a wall
                 if not self.gameGrid.isWall(location[0], location[1]):
                     print("no wall at {}".format(location))
                     self.currentLocation = location
-                    self.rect.x += self.changeX*(self.gameGrid.gridSquareSize+1)
-                    self.rect.y += self.changeY*(self.gameGrid.gridSquareSize+1)
+                    self.rect.x += self.changeX*(self.gameGrid.gridSquareSize + 1)
+                    self.rect.y += self.changeY*(self.gameGrid.gridSquareSize + 1)
                 else:
                     print("wall at {}".format(self.currentLocation)) # for debugging purposes
                     self.currentLocation[0] -= self.changeX
