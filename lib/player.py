@@ -58,7 +58,7 @@ class Player(pygame.sprite.Sprite):
                     self.rect.x += self.changeX*(self.gameGrid.gridSquareSize + 1)
                     self.rect.y += self.changeY*(self.gameGrid.gridSquareSize + 1)
                 else:
-                    print("wall at {}".format(self.currentLocation))  # for debugging purposes
+                    print("wall at {}".format(location))  # for debugging purposes
 
         # Reset movement
         self.changeX = 0
