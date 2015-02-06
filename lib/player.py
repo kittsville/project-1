@@ -46,14 +46,15 @@ class Player(pygame.sprite.Sprite):
 
         # if there is any movement
         if self.changeX != 0 or self.changeY != 0:
+            # update location
+            location[0] += self.changeX
+            location[1] += self.changeY
             # if location is inside the game grid
-            if (0 <= location[0] + self.changeX < self.gameGrid.Width) and (0 <= location[1] + self.changeY < self.gameGrid.Height):
-                location[0] += self.changeX
-                location[1] += self.changeY
+            if (0 <= location[0] < self.gameGrid.Width) and (0 <= location[1] < self.gameGrid.Height):
                 # if location is not a wall
                 if not self.gameGrid.isWall(location[0], location[1]):
                     print("no wall at {}".format(location))  # for debugging purposes
-                    # update location
+                    # update player location
                     self.currentLocation = list(location)
                     self.rect.x += self.changeX*(self.gameGrid.gridSquareSize + 1)
                     self.rect.y += self.changeY*(self.gameGrid.gridSquareSize + 1)

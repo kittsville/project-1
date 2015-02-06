@@ -36,10 +36,8 @@ startMenu.active = True
 # Allows held keys to act as multiple key presses. After 200ms delay, every 69ms the held key will generate a new key press
 pygame.key.set_repeat(199,69)
 
-# create sprites list which the player will be in
+# create sprites list which the player will be added to
 active_sprites = pygame.sprite.Group()
-
-pygame.display.update()
 
 # Main game loop
 while True:
@@ -71,9 +69,11 @@ while True:
                     
                     # From here on, grid is ready for player
                     # Need to add ability to set player location using mouse
-                    # Generate player and add to to sprites list
-                    player = player.Player(0, 0, gameGrid)
-                    active_sprites.add(player)
+
+                    # Create player at the x, y location on the grid
+                    thePlayer = player.Player(0, 0, gameGrid)
+                    # Add player to active spirtes list
+                    active_sprites.add(thePlayer)
                 
                 # If options were selected, loads options menu
                 elif selectedMenuItem is 1:
@@ -90,16 +90,16 @@ while True:
             # player movement
             if event.type == KEYDOWN:
                 if event.key == K_UP:
-                    player.moveUp()
+                    thePlayer.moveUp()
                 elif event.key == K_DOWN:
-                    player.moveDown()
+                    thePlayer.moveDown()
                 elif event.key == K_LEFT:
-                    player.moveLeft()
+                    thePlayer.moveLeft()
                 elif event.key == K_RIGHT:
-                    player.moveRight()
+                    thePlayer.moveRight()
 
                 # update player location
-                player.update()
+                thePlayer.update()
 
             # Clear screen
             screen.fill(BACKGROUND)
@@ -107,7 +107,7 @@ while True:
             # Draws current game grid to screen, necessary to keep it displayed to propagate updates to player position
             gameGrid.draw()
 
-            # draw player
+            # draw all active sprites
             active_sprites.draw(screen)
 
             # Flip screen
