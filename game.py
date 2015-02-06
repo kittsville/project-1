@@ -72,7 +72,7 @@ while True:
 
                     # Create player at the x, y location on the grid
                     thePlayer = player.Player(0, 0, gameGrid)
-                    # Add player to active spirtes list
+                    # Add player to active sprites list
                     active_sprites.add(thePlayer)
                 
                 # If options were selected, loads options menu
