@@ -126,15 +126,15 @@ while True:
 
             if event.type == MOUSEBUTTONDOWN:
                 
-                pos = ( event.pos[0], event.pos[1])
+                pos = (event.pos[0], event.pos[1])
         
                 # Loops through grid squares, checking if click occurred in squares's area
                 for y in xrange(gameGrid.Height):
                     row = gameGrid.gridObjects[y]
                     for x in xrange(gameGrid.Width):
                         if row[x].collidepoint(pos):
-                            thePlayer.changeX = x - thePlayer.currentLocation[0]
-                            thePlayer.changeY = y - thePlayer.currentLocation[1]
+                            thePlayer.changeX = x - thePlayer.currentLocation[1]
+                            thePlayer.changeY = y - thePlayer.currentLocation[0]
                             print "Attempted move %d, %d" %(thePlayer.changeX, thePlayer.changeY)
                             thePlayer.update()
 
