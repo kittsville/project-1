@@ -22,6 +22,7 @@ class Matrix:
     
     # Generates game grid on matrix initialisation
     def __init__(self, mWidth, mHeight, gameSurface):
+        self.totalStars     = 0
         self.Width          = mWidth
         self.Height         = mHeight
         self.pixelWidth     = (mWidth * ( self.gridSquareSize + 1 )) + 1    # Calculates total width of grid in pixels
@@ -45,11 +46,12 @@ class Matrix:
                     row.append(1)
                 elif starCount < maxStars and randint(1, 11) < starThreshold:
                     row.append(2)
+                    self.totalStars += 1
                 else:
                     row.append(0)
 
             self.grid.append(row)
-        
+
         # Adds the goal, the square the player must travel to on level completion
         self.addGoal(mWidth, mHeight)
         for y in range(0, mHeight):
@@ -62,7 +64,21 @@ class Matrix:
             return True
         else:
             return False
-    
+
+    # Returns if a star exists at the given position
+    def isStar(self, xPos, yPos):
+        if self.grid[yPos][xPos] == 2:
+            return True
+        else:
+            return False
+
+    # Returns if a goal is at the given position
+    def isGoal(self, xPos, yPos):
+        if self.grid[yPos][xPos] == 3:
+            return True
+        else:
+            return False
+
     #Checks if the space it is attempting to occupy is a blank spot
     #if it isn't then it recursively calls itself till it finds a empty spot
     def addGoal(self, mWidth, mHeight):

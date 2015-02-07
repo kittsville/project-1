@@ -42,7 +42,7 @@ startMenu.active = True
 # Allows held keys to act as multiple key presses. After 200ms delay, every 69ms the held key will generate a new key press
 pygame.key.set_repeat(199,69)
 
-# create sprites list which the player will be in
+# create sprites list which the player will be added to
 active_sprites = pygame.sprite.Group()
 
 pygame.display.update()
@@ -78,7 +78,15 @@ while True:
                     startMenu.active = False
                     gamePaused = False
                     # Generates game grid
-                    gameGrid = matrix.Matrix(8, 8, screen)
+                    gameGrid = matrix.Matrix(16, 16, screen)
+                    
+                    # From here on, grid is ready for player
+                    # Need to add ability to set player location using mouse
+
+                    # Create player at the x, y location on the grid
+                    thePlayer = player.Player(0, 0, gameGrid)
+                    # Add player to active sprites list
+                    active_sprites.add(thePlayer)
                 
                 # If options were selected, loads options menu
                 elif selectedMenuItem is 1:
@@ -91,20 +99,35 @@ while True:
             
             startMenu.draw()        
             pygame.display.update()
-        elif(playerPlaced == True):
+        #elif(playerPlaced == True):
+        else:
+            # get player location
+            playerX, playerY = thePlayer.getLocation()
+
+            # if there is a star at players location collect it
+            if gameGrid.isStar(playerX, playerY):
+                gameGrid.grid[playerY][playerX] = 0
+                gameGrid.totalStars -= 1
+                print "total stars: {}".format(gameGrid.totalStars)
+
+            # if players location is the goal and all stars been collected. It means the game has been completed.
+            if gameGrid.isGoal(playerX, playerY) and gameGrid.totalStars == 0:
+                print "you completed the game!"
+                active_sprites.remove(thePlayer)
+                startMenu.active = True
             # player movement
             if event.type == KEYDOWN and gamePaused == False:
                 if event.key == K_UP:
-                    player.moveUp()
+                    thePlayer.moveUp()
                 elif event.key == K_DOWN:
-                    player.moveDown()
+                    thePlayer.moveDown()
                 elif event.key == K_LEFT:
-                    player.moveLeft()
+                    thePlayer.moveLeft()
                 elif event.key == K_RIGHT:
-                    player.moveRight()
+                    thePlayer.moveRight()
 
                 # update player location
-                player.update()
+                thePlayer.update()
 
             # Clear screen
             screen.fill(BACKGROUND)
@@ -112,29 +135,29 @@ while True:
             # Draws current game grid to screen, necessary to keep it displayed to propagate updates to player position
             gameGrid.draw()
 
-            # draw player
+            # draw all active sprites
             active_sprites.draw(screen)
 
             # Flip screen
             pygame.display.flip()
 
 
-        elif playerPlaced == False:
+#        elif playerPlaced == False:
             # Clear screen
-            screen.fill(BACKGROUND)
+#            screen.fill(BACKGROUND)
 
             # Draws current game grid to screen, necessary to keep it displayed to propagate updates to player position
-            gameGrid.draw()
-            drawInfo("Please place your robot!", (gameGrid.pixelWidth, gameGrid.pixelHeight))
+#            gameGrid.draw()
+#            drawInfo("Please place your robot!", (gameGrid.pixelWidth, gameGrid.pixelHeight))
                 
-            if event.type == MOUSEBUTTONDOWN and event.button == 1:
-                
-                pos = ( event.pos[0], event.pos[1])
-        
+#            if event.type == MOUSEBUTTONDOWN and event.button == 1:
+#                
+#                pos = ( event.pos[0], event.pos[1])
+#        
                 # Loops through grid squares, checking if click occurred in squares's area
-                for x in xrange(gameGrid.):
-                    for
-                    if self.menuItemObjects[i].itemRect.collidepoint( pos ):
+#                for x in xrange(gameGrid.):
+#                    for
+#                    if self.menuItemObjects[i].pygame.Rect.collidepoint( pos ):
                          
 
     # Pause
