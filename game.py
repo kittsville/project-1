@@ -168,7 +168,7 @@ while True:
                 for y in xrange(gameGrid.Height):
                     row = gameGrid.gridObjects[y]
                     for x in xrange(gameGrid.Width):
-                        if row[x].collidepoint(pos) and not gameGrid.isWall(x,y):
+                        if row[x].collidepoint(pos) and not gameGrid.isWall(y, x):
                             playerPlaced = True
                             thePlayer = player.Player(y, x, gameGrid)
                             active_sprites.add(thePlayer)
