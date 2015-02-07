@@ -133,8 +133,8 @@ while True:
                     row = gameGrid.gridObjects[y]
                     for x in xrange(thePlayer.currentLocation[0]-1,thePlayer.currentLocation[0]+1):
                         if row[x].collidepoint(pos):
-                            thePlayer.changeX = x - thePlayer.currentLocation[x]
-                            thePlayer.changeX = y - thePlayer.currentLocation[y]
+                            thePlayer.changeX = x - thePlayer.currentLocation[0]
+                            thePlayer.changeX = y - thePlayer.currentLocation[1]
                             thePlayer.update()
 
 
@@ -168,7 +168,7 @@ while True:
                 for y in xrange(gameGrid.Height):
                     row = gameGrid.gridObjects[y]
                     for x in xrange(gameGrid.Width):
-                        if row[x].collidepoint( pos ):
+                        if row[x].collidepoint(pos) and not gameGrid.isWall(x,y):
                             playerPlaced = True
                             thePlayer = player.Player(y, x, gameGrid)
                             active_sprites.add(thePlayer)
