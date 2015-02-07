@@ -11,7 +11,7 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.image.load("assets/robot.png").convert_alpha()
         self.rect = self.image.get_rect()
 
-        # Make our top-left corner the passed-in location
+        # Make our top-left corner the passed-in locationgit 
         self.rect.x = gridX*(matrix.gridSquareSize + 1)
         self.rect.y = gridY*(matrix.gridSquareSize + 1)
 
@@ -47,6 +47,7 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         # temporary location to check if there is a wall before updating real location
         location = list(self.currentLocation)
+        print location
 
         # if there is any movement
         if self.changeX != 0 or self.changeY != 0:

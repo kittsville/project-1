@@ -133,8 +133,8 @@ while True:
                     row = gameGrid.gridObjects[y]
                     for x in xrange(gameGrid.Width):
                         if row[x].collidepoint(pos):
-                            thePlayer.changeX = x - thePlayer.currentLocation[1]
-                            thePlayer.changeY = y - thePlayer.currentLocation[0]
+                            thePlayer.changeX = x - thePlayer.currentLocation[0]
+                            thePlayer.changeY = y - thePlayer.currentLocation[1]
                             print "Attempted move %d, %d" %(thePlayer.changeX, thePlayer.changeY)
                             thePlayer.update()
 
@@ -169,6 +169,7 @@ while True:
                 for y in xrange(gameGrid.Height):
                     row = gameGrid.gridObjects[y]
                     for x in xrange(gameGrid.Width):
+                        #I don't understand this isWall(self,xPos, yPos): and __init__(self, gridX, gridY, matrix):
                         if row[x].collidepoint(pos) and not gameGrid.isWall(y, x):
                             playerPlaced = True
                             thePlayer = player.Player(y, x, gameGrid)
