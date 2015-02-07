@@ -93,7 +93,7 @@ while True:
             screen.fill(BACKGROUND)
             startMenu.draw()        
             pygame.display.update()
-        elif playerPlaced == True:
+        elif playerPlaced:
             # get player location
             playerX, playerY = thePlayer.getLocation()
 
@@ -133,8 +133,8 @@ while True:
                     row = gameGrid.gridObjects[y]
                     for x in xrange(gameGrid.Width):
                         if row[x].collidepoint(pos):
-                            thePlayer.changeX = x - thePlayer.currentLocation[0]
-                            thePlayer.changeY = y - thePlayer.currentLocation[1]
+                            thePlayer.changeX = y - playerX
+                            thePlayer.changeY = x - playerY
                             print "Attempted move %d, %d" %(thePlayer.changeX, thePlayer.changeY)
                             thePlayer.update()
 
@@ -152,15 +152,15 @@ while True:
             pygame.display.flip()
 
 
-        elif playerPlaced == False:
+        elif not playerPlaced:
             # Clear screen
             screen.fill(BACKGROUND)
 
             # Draws current game grid to screen, necessary to keep it displayed to propagate updates to player position
             gameGrid.draw()
+            drawInfo("Please place your robot!", (90, gameGrid.pixelHeight))
             pygame.display.update()
-            drawInfo("Please place your robot!", (gameGrid.pixelWidth, gameGrid.pixelHeight))
-                
+
             if event.type == MOUSEBUTTONDOWN:
                 
                 pos = ( event.pos[0], event.pos[1])
@@ -169,7 +169,6 @@ while True:
                 for y in xrange(gameGrid.Height):
                     row = gameGrid.gridObjects[y]
                     for x in xrange(gameGrid.Width):
-                        #I don't understand this isWall(self,xPos, yPos): and __init__(self, gridX, gridY, matrix):
                         if row[x].collidepoint(pos) and not gameGrid.isWall(y, x):
                             playerPlaced = True
                             thePlayer = player.Player(y, x, gameGrid)
