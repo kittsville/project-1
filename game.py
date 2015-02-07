@@ -27,6 +27,12 @@ screen.fill(BACKGROUND)
 
 clock = pygame.time.Clock()
 
+gamePaused = True
+
+#Whether or not the player has set a location for his robot
+
+playerPlaced = False
+
 # Creates all game menus (currently just start menu)
 startMenu = menu.Menu(['Start','Options','Quit'], screen)
 
@@ -40,6 +46,11 @@ pygame.key.set_repeat(199,69)
 active_sprites = pygame.sprite.Group()
 
 pygame.display.update()
+
+def drawInfo(output, outputLocation):
+    currentFont = pygame.font.Font(startMenu.fontPath, startMenu.fontSize)
+    outputText = currentFont.render(output,1, startMenu.textColour, BACKGROUND)
+    screen.blit(outputText, outputLocation)
 
 # Main game loop
 while True:
@@ -65,15 +76,9 @@ while True:
                 if selectedMenuItem is 0:
                     # Turns off start menu
                     startMenu.active = False
-                    
+                    gamePaused = False
                     # Generates game grid
                     gameGrid = matrix.Matrix(8, 8, screen)
-                    
-                    # From here on, grid is ready for player
-                    # Need to add ability to set player location using mouse
-                    # Generate player and add to to sprites list
-                    player = player.Player(0, 0, gameGrid)
-                    active_sprites.add(player)
                 
                 # If options were selected, loads options menu
                 elif selectedMenuItem is 1:
@@ -86,9 +91,9 @@ while True:
             
             startMenu.draw()        
             pygame.display.update()
-        else:
+        elif(playerPlaced == True):
             # player movement
-            if event.type == KEYDOWN:
+            if event.type == KEYDOWN and gamePaused == False:
                 if event.key == K_UP:
                     player.moveUp()
                 elif event.key == K_DOWN:
@@ -112,6 +117,25 @@ while True:
 
             # Flip screen
             pygame.display.flip()
+
+
+        elif playerPlaced == False:
+            # Clear screen
+            screen.fill(BACKGROUND)
+
+            # Draws current game grid to screen, necessary to keep it displayed to propagate updates to player position
+            gameGrid.draw()
+            drawInfo("Please place your robot!", (gameGrid.pixelWidth, gameGrid.pixelHeight))
+                
+            if event.type == MOUSEBUTTONDOWN and event.button == 1:
+                
+                pos = ( event.pos[0], event.pos[1])
+        
+                # Loops through grid squares, checking if click occurred in squares's area
+                for x in xrange(gameGrid.):
+                    for
+                    if self.menuItemObjects[i].itemRect.collidepoint( pos ):
+                         
 
     # Pause
     clock.tick(60)
