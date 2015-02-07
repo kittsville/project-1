@@ -63,6 +63,7 @@ while True:
         
         # If user is currently in start menu
         if startMenu.active:
+            screen.fill(BACKGROUND)
             if event.type == KEYDOWN:
                 # Updates selected menu item based on key press
                 startMenu.updateSelectedItem( event.key )
