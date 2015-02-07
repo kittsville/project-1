@@ -30,8 +30,8 @@ class Matrix:
         maxObstacles        = mWidth * mHeight * self.obstacleDensity       # Maximum number of obstacle blocks allowed on the grid
         maxStars            = mWidth * mHeight * self.starDensity           # Maximum number of stars allowed on the grid
         
-        obstacleCount       = 0                                             # Number of obstacle blocks placed in the grid so far
-        starCount           = 0                                             # Number of stars placed in the grid so far
+        self.obstacleCount  = 0                                             # Number of obstacle blocks placed in the grid so far
+        self.starCount      = 0                                             # Number of stars placed in the grid so far
         obstacleThreshold   = self.obstacleDensity * 10                     # Modifies density for use by the random obstacle placer
         starThreshold       = self.starDensity * 10                         # Modifies density for use by the random star placer
         self.grid           = []                                            # Reset grid
@@ -41,10 +41,10 @@ class Matrix:
         for y in range(0, mHeight):
             row = []
             for x in range(0, mWidth):
-                if obstacleCount < maxObstacles and randint(1, 11) < obstacleThreshold:
+                if self.obstacleCount < maxObstacles and randint(1, 11) < obstacleThreshold:
                     row.append(1)
                     self.obstacleCount += 1
-                elif starCount < maxStars and randint(1, 11) < starThreshold:
+                elif self.starCount < maxStars and randint(1, 11) < starThreshold:
                     row.append(2)
                     self.starCount += 1
                 else:
