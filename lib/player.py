@@ -39,6 +39,10 @@ class Player(pygame.sprite.Sprite):
     def moveRight(self):
         self.changeX = 1
 
+    # Returns the location of the player
+    def getLocation(self):
+        return self.currentLocation[0], self.currentLocation[1]
+
     # Update the location of the player if new location is in matrix
     def update(self):
         # temporary location to check if there is a wall before updating real location
