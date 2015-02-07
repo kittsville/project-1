@@ -124,6 +124,20 @@ while True:
                 # update player location
                 thePlayer.update()
 
+            if event.type == MOUSEBUTTONDOWN:
+                
+                pos = ( event.pos[0], event.pos[1])
+        
+                # Loops through grid squares, checking if click occurred in squares's area
+                for y in xrange(thePlayer.currentLocation[1]-1,thePlayer.currentLocation[1]+1):
+                    row = gameGrid.gridObjects[y]
+                    for x in xrange(thePlayer.currentLocation[0]-1,thePlayer.currentLocation[0]+1):
+                        if row[x].collidepoint(pos):
+                            thePlayer.changeX = x - thePlayer.currentLocation[x]
+                            thePlayer.changeX = y - thePlayer.currentLocation[y]
+                            thePlayer.update()
+
+
             # Clear screen
             screen.fill(BACKGROUND)
 
