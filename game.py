@@ -136,7 +136,11 @@ while True:
                             thePlayer.changeX = y - playerX
                             thePlayer.changeY = x - playerY
                             print "Attempted move %d, %d" %(thePlayer.changeX, thePlayer.changeY)
-                            thePlayer.update()
+                            if(-1 >= (thePlayer.changeX) <= 1) and (-1 >= (thePlayer.changeY) <= 1):
+                                thePlayer.update()
+                            else:
+                                thePlayer.changeY = 0
+                                thePlayer.changeX = 0
 
 
             # Clear screen
