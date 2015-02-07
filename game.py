@@ -100,14 +100,16 @@ while True:
             # if there is a star at players location collect it
             if gameGrid.isStar(playerX, playerY):
                 gameGrid.grid[playerY][playerX] = 0
-                gameGrid.totalStars -= 1
-                print "total stars: {}".format(gameGrid.totalStars)
+                gameGrid.starCount -= 1
+                print "stars left: {}".format(gameGrid.starCount)
 
             # if players location is the goal and all stars been collected. It means the game has been completed.
-            if gameGrid.isGoal(playerX, playerY) and gameGrid.totalStars == 0:
+            if gameGrid.isGoal(playerX, playerY) and gameGrid.starCount == 0:
                 print "you completed the game!"
                 active_sprites.remove(thePlayer)
+                playerPlaced = False
                 startMenu.active = True
+
             # player movement
             if event.type == KEYDOWN and gamePaused == False:
                 if event.key == K_UP:
