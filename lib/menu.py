@@ -70,7 +70,16 @@ class Menu:
         self.windowSurface  = windowSurface
         self.menuItemCount  = len(self.menuItems)
         self.drawMenuItems()
-    
+
+    # Updates selected menu item based on mouse position
+    def updateSelectedItemMouse(self, mousePos):
+        pos = ( mousePos[0] - self.drawPosition[0], mousePos[1] - self.drawPosition[1] )
+
+        # Loops through menu items, checking if mouse position is menu item's area
+        for i in xrange(self.menuItemCount):
+            if self.menuItemObjects[i].itemRect.collidepoint( pos ):
+                self.selectedMenuItem = i
+
     # Changes selected menu item based on up/down key press
     def updateSelectedItem(self, keyPress ):
         if keyPress == K_UP:

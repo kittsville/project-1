@@ -75,7 +75,12 @@ while True:
             if event.type == KEYDOWN:
                 # Updates selected menu item based on key press
                 startMenu.updateSelectedItem( event.key )
-            
+
+            # update selected menu item based on mouse position if there is any mouse movement
+            if pygame.mouse.get_rel() != (0, 0):
+                mousePos = pygame.mouse.get_pos()
+                startMenu.updateSelectedItemMouse(mousePos)
+
             # If user has pressed Enter, perform action of whichever menu item was selected
             if (event.type == KEYDOWN and event.key == K_RETURN) or event.type == MOUSEBUTTONDOWN:
                 # Fetches menu item selected when enter was pressed, or menu item that was clicked
