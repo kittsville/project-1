@@ -47,6 +47,13 @@ active_sprites = pygame.sprite.Group()
 
 pygame.display.update()
 
+totalTime =  60
+
+frames = 0
+
+#draws the provided string to a given location on a surface by first getting the games font from the menu class
+#then by creating another surface on which to write the text
+#the new surface is then placed in the specified spot.
 def drawInfo(output, outputLocation):
     currentFont = pygame.font.Font(startMenu.fontPath, startMenu.fontSize)
     outputText = currentFont.render(output,1, startMenu.textColour, BACKGROUND)
@@ -174,12 +181,19 @@ while True:
                     row = gameGrid.gridObjects[y]
                     for x in xrange(gameGrid.Width):
                         if row[x].collidepoint(pos) and not gameGrid.isWall(y, x):
+                            #Set to true so that regular game functions are now reachable
                             playerPlaced = True
+                            #creates new instance of the class player.
                             thePlayer = player.Player(y, x, gameGrid)
+                            #allows the player to be drawn to he GUI
                             active_sprites.add(thePlayer)
 
-                         
-
+    if(playerPlaced == True):
+        currentTime = totalTime - (frames//60)
+        stringTime = str(currentTime)               
+        drawInfo(stringTime, (90, gameGrid.pixelHeight))
+        pygame.display.update()
+        frames += 1
     # Pause
     clock.tick(60)
 
