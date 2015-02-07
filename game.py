@@ -80,13 +80,6 @@ while True:
                     # Generates game grid
                     gameGrid = matrix.Matrix(16, 16, screen)
                     
-                    # From here on, grid is ready for player
-                    # Need to add ability to set player location using mouse
-
-                    # Create player at the x, y location on the grid
-                    #thePlayer = player.Player(0, 0, gameGrid)
-                    # Add player to active sprites list
-                    #active_sprites.add(thePlayer)
                 
                 # If options were selected, loads options menu
                 elif selectedMenuItem is 1:
@@ -151,7 +144,7 @@ while True:
             pygame.display.update()
             drawInfo("Please place your robot!", (gameGrid.pixelWidth, gameGrid.pixelHeight))
                 
-            if event.type == MOUSEBUTTONDOWN and event.button == 1:
+            if event.type == MOUSEBUTTONDOWN:
                 
                 pos = ( event.pos[0], event.pos[1])
         
