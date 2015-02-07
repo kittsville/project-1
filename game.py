@@ -129,12 +129,13 @@ while True:
                 pos = ( event.pos[0], event.pos[1])
         
                 # Loops through grid squares, checking if click occurred in squares's area
-                for y in xrange(thePlayer.currentLocation[1]-1,thePlayer.currentLocation[1]+1):
+                for y in xrange(gameGrid.Height):
                     row = gameGrid.gridObjects[y]
-                    for x in xrange(thePlayer.currentLocation[0]-1,thePlayer.currentLocation[0]+1):
+                    for x in xrange(gameGrid.Width):
                         if row[x].collidepoint(pos):
                             thePlayer.changeX = x - thePlayer.currentLocation[0]
-                            thePlayer.changeX = y - thePlayer.currentLocation[1]
+                            thePlayer.changeY = y - thePlayer.currentLocation[1]
+                            print "Attempted move %d, %d" %(thePlayer.changeX, thePlayer.changeY)
                             thePlayer.update()
 
 
