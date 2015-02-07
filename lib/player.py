@@ -23,22 +23,6 @@ class Player(pygame.sprite.Sprite):
         self.gameGrid = matrix
         self.currentLocation = [gridX, gridY]
 
-    # Move the player to the grid above
-    def moveUp(self):
-        self.changeY = -1
-
-    # Move the player to the grid below
-    def moveDown(self):
-        self.changeY = 1
-
-    # Move the player to the grid to the left
-    def moveLeft(self):
-        self.changeX = -1
-
-    # Move the player to the grid to the right
-    def moveRight(self):
-        self.changeX = 1
-
     # Returns the location of the player
     def getLocation(self):
         return self.currentLocation[0], self.currentLocation[1]
@@ -54,6 +38,7 @@ class Player(pygame.sprite.Sprite):
             # update location
             location[0] += self.changeX
             location[1] += self.changeY
+
             # if location is inside the game grid
             if (0 <= location[0] < self.gameGrid.Width) and (0 <= location[1] < self.gameGrid.Height):
                 # if location is not a wall

@@ -29,8 +29,7 @@ clock = pygame.time.Clock()
 
 gamePaused = True
 
-#Whether or not the player has set a location for his robot
-
+# Whether or not the player has set a location for his robot
 playerPlaced = False
 
 # Creates all game menus (currently just start menu)
@@ -39,7 +38,8 @@ startMenu = menu.Menu(['Start','Options','Quit'], screen)
 # Activates start menu, so it displays on game start up
 startMenu.active = True
 
-# Allows held keys to act as multiple key presses. After 200ms delay, every 69ms the held key will generate a new key press
+# Allows held keys to act as multiple key presses.
+# After 200ms delay, every 69ms the held key will generate a new key press
 pygame.key.set_repeat(199,69)
 
 # create sprites list which the player will be added to
@@ -86,8 +86,7 @@ while True:
                     gamePaused = False
                     # Generates game grid
                     gameGrid = matrix.Matrix(16, 16, screen)
-                    
-                
+
                 # If options were selected, loads options menu
                 elif selectedMenuItem is 1:
                     print 'Options selected'
@@ -96,7 +95,8 @@ while True:
                 elif selectedMenuItem is 2:
                     pygame.display.quit()
                     sys.exit()
-            #removes board after game finishes.
+
+            # removes board after game finishes.
             screen.fill(BACKGROUND)
             startMenu.draw()        
             pygame.display.update()
@@ -118,21 +118,21 @@ while True:
                 startMenu.active = True
 
             # player movement
-            if event.type == KEYDOWN and gamePaused == False:
+            if event.type == KEYDOWN and not gamePaused:
                 if event.key == K_UP:
-                    thePlayer.moveUp()
+                    thePlayer.changeY = -1
                 elif event.key == K_DOWN:
-                    thePlayer.moveDown()
+                    thePlayer.changeY = 1
                 elif event.key == K_LEFT:
-                    thePlayer.moveLeft()
+                    thePlayer.changeX = -1
                 elif event.key == K_RIGHT:
-                    thePlayer.moveRight()
+                    thePlayer.changeX = 1
 
                 # update player location
                 thePlayer.update()
 
             if event.type == MOUSEBUTTONDOWN:
-                
+                # position of mouse click
                 pos = (event.pos[0], event.pos[1])
         
                 # Loops through grid squares, checking if click occurred in squares's area
@@ -143,12 +143,11 @@ while True:
                             thePlayer.changeX = y - playerX
                             thePlayer.changeY = x - playerY
                             print "Attempted move %d, %d" %(thePlayer.changeX, thePlayer.changeY)
-                            if(-1 <= (thePlayer.changeX) <= 1) and (-1 <= (thePlayer.changeY) <= 1):
+                            if(-1 <= thePlayer.changeX <= 1) and (-1 <= thePlayer.changeY <= 1):
                                 thePlayer.update()
                             else:
                                 thePlayer.changeY = 0
                                 thePlayer.changeX = 0
-
 
             # Clear screen
             screen.fill(BACKGROUND)
@@ -162,7 +161,6 @@ while True:
             # Flip screen
             pygame.display.flip()
 
-
         elif not playerPlaced:
             # Clear screen
             screen.fill(BACKGROUND)
@@ -174,7 +172,7 @@ while True:
 
             if event.type == MOUSEBUTTONDOWN:
                 
-                pos = ( event.pos[0], event.pos[1])
+                pos = (event.pos[0], event.pos[1])
         
                 # Loops through grid squares, checking if click occurred in squares's area
                 for y in xrange(gameGrid.Height):
@@ -188,12 +186,15 @@ while True:
                             #allows the player to be drawn to he GUI
                             active_sprites.add(thePlayer)
 
+<<<<<<< HEAD
     if(playerPlaced == True):
         currentTime = totalTime - (frames//60)
         stringTime = str(currentTime)               
         drawInfo(stringTime, (90, gameGrid.pixelHeight))
         pygame.display.update()
         frames += 1
+=======
+>>>>>>> ee71efa5ef8e9b38a1b88defc39c6579502134f4
     # Pause
     clock.tick(60)
 
