@@ -49,6 +49,8 @@ pygame.display.update()
 
 totalTime =  60
 
+currentTime = totalTime
+
 frames = 0
 
 #draws the provided string to a given location on a surface by first getting the games font from the menu class
@@ -86,6 +88,7 @@ while True:
                     gamePaused = False
                     # Generates game grid
                     gameGrid = matrix.Matrix(16, 16, screen)
+                    currentTime = totalTime
 
                 # If options were selected, loads options menu
                 elif selectedMenuItem is 1:
@@ -186,15 +189,19 @@ while True:
                             #allows the player to be drawn to he GUI
                             active_sprites.add(thePlayer)
 
-<<<<<<< HEAD
-    if(playerPlaced == True):
+
+    if(playerPlaced):
         currentTime = totalTime - (frames//60)
         stringTime = str(currentTime)               
         drawInfo(stringTime, (90, gameGrid.pixelHeight))
         pygame.display.update()
         frames += 1
-=======
->>>>>>> ee71efa5ef8e9b38a1b88defc39c6579502134f4
+
+    if(currentTime <= 0 and playerPlaced):
+        print "Out of time!"
+        active_sprites.remove(thePlayer)
+        playerPlaced = False
+        startMenu.active = True
     # Pause
     clock.tick(60)
 
