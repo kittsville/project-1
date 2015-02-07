@@ -65,7 +65,7 @@ while True:
                     startMenu.active = False
                     
                     # Generates game grid
-                    gameGrid = matrix.Matrix(8, 8, screen)
+                    gameGrid = matrix.Matrix(16, 16, screen)
                     
                     # From here on, grid is ready for player
                     # Need to add ability to set player location using mouse
@@ -87,6 +87,21 @@ while True:
             startMenu.draw()        
             pygame.display.update()
         else:
+            # get player location
+            playerX, playerY = thePlayer.getLocation()
+
+            # if there is a star at players location collect it
+            if gameGrid.isStar(playerX, playerY):
+                gameGrid.grid[playerY][playerX] = 0
+                gameGrid.totalStars -= 1
+                print "total stars: {}".format(gameGrid.totalStars)
+
+            # if players location is the goal and all stars been collected. It means the game has been completed.
+            if gameGrid.isGoal(playerX, playerY) and gameGrid.totalStars == 0:
+                print "you completed the game!"
+                active_sprites.remove(thePlayer)
+                startMenu.active = True
+
             # player movement
             if event.type == KEYDOWN:
                 if event.key == K_UP:
