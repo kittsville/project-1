@@ -133,8 +133,8 @@ while True:
                     row = gameGrid.gridObjects[y]
                     for x in xrange(gameGrid.Width):
                         if row[x].collidepoint(pos):
-                            thePlayer.changeX = x - thePlayer.currentLocation[1]
-                            thePlayer.changeY = y - thePlayer.currentLocation[0]
+                            thePlayer.changeX = y - thePlayer.currentLocation[0]
+                            thePlayer.changeY = x - thePlayer.currentLocation[1]
                             print "Attempted move %d, %d" %(thePlayer.changeX, thePlayer.changeY)
                             thePlayer.update()
 
