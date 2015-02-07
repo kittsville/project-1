@@ -114,7 +114,9 @@ while True:
             if gameGrid.isGoal(playerX, playerY) and gameGrid.starCount == 0:
                 print "you completed the game!"
                 active_sprites.remove(thePlayer)
+                playerPlaced = False
                 startMenu.active = True
+
             # player movement
             if event.type == KEYDOWN and gamePaused == False:
                 if event.key == K_UP:
