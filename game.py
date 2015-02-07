@@ -182,12 +182,14 @@ while True:
                     row = gameGrid.gridObjects[y]
                     for x in xrange(gameGrid.Width):
                         if row[x].collidepoint(pos) and not gameGrid.isWall(y, x):
-                            #Set to true so that regular game functions are now reachable
+                            # Set to true so that regular game functions are now reachable
                             playerPlaced = True
-                            #creates new instance of the class player.
+                            # creates new instance of the class player.
                             thePlayer = player.Player(y, x, gameGrid)
-                            #allows the player to be drawn to he GUI
+                            # allows the player to be drawn to he GUI
                             active_sprites.add(thePlayer)
+                            # set frames to 0 so that the timer will be reset if the user plays another game
+                            frames = 0
 
 
     if(playerPlaced):
