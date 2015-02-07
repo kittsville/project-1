@@ -22,7 +22,6 @@ class Matrix:
     
     # Generates game grid on matrix initialisation
     def __init__(self, mWidth, mHeight, gameSurface):
-        self.totalStars     = 0
         self.Width          = mWidth
         self.Height         = mHeight
         self.pixelWidth     = (mWidth * ( self.gridSquareSize + 1 )) + 1    # Calculates total width of grid in pixels
@@ -44,9 +43,10 @@ class Matrix:
             for x in range(0, mWidth):
                 if obstacleCount < maxObstacles and randint(1, 11) < obstacleThreshold:
                     row.append(1)
+                    self.obstacleCount += 1
                 elif starCount < maxStars and randint(1, 11) < starThreshold:
                     row.append(2)
-                    self.totalStars += 1
+                    self.starCount += 1
                 else:
                     row.append(0)
 
