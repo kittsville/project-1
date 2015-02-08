@@ -12,7 +12,7 @@ class Matrix:
     pixelWidth          = 0                 # Width of grid in pixels
     pixelHeight         = 0                 # Height of grid in pixels
     pixelMargin         = 1                 # The number of pixels to separate grid squares vertically and horizontally
-    obstacleDensity     = 0.4               # Amount of obstacle blocks to place in the grid to 1 d.p. 1 = All obstacles, 0 = No obstacles
+    obstacleDensity     = 0.3               # Amount of obstacle blocks to place in the grid to 1 d.p. 1 = All obstacles, 0 = No obstacles
     starDensity         = 0.2               # Amount of stars to place in the grid to 1 d.p. 1 = All stars, 0 = No stars
     gridSquareSize      = 32                # Height and width, in pixels, of each game grid square
     
