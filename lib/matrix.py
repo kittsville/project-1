@@ -35,7 +35,6 @@ class Matrix:
         obstacleThreshold   = self.obstacleDensity * 10                     # Modifies density for use by the random obstacle placer
         starThreshold       = self.starDensity * 10                         # Modifies density for use by the random star placer
         self.grid           = []                                            # Reset grid
-        self.obstacles      = []
 
         print 'Generating Grid' # Debugging code, leave for now
         
@@ -45,7 +44,6 @@ class Matrix:
                 if self.obstacleCount < maxObstacles and randint(1, 11) < obstacleThreshold:
                     row.append(1)
                     self.obstacleCount += 1
-                    obstacles.append((x,y))
                 elif self.starCount < maxStars and randint(1, 11) < starThreshold:
                     row.append(2)
                     self.starCount += 1
@@ -96,24 +94,6 @@ class Matrix:
             self.goalLocation = [x, y]
         else:
             self.addGoal(mWidth, mHeight)
-
-    #By finding any paths of obstacles and removing an obstacle so that any point on the
-    #board can be reached
-    def makeSolvable():
-        for j in range(0, self.obstacles.len()-1):
-            start = self.obstacles[j]
-            startX = a[0]
-            startY = a[1] 
-            path.append(start)
-            for i in range(0, self.obstacles.len()-1):
-                a = self.obstacles[i]
-                x = a[0]
-                y = a[1]
-                if (startX-1 <= x <= startX+1) and (startY-1 <= y <= startY-1) and (i != j):
-                    path.append(a)
-                    if path.len() > 2
-                        #checks to see if complete if so then a block needs to removed from grid
-                
 
     # Renders game grid to display
     def draw(self):
