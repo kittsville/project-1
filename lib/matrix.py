@@ -96,8 +96,24 @@ class Matrix:
             self.goalLocation = [x, y]
         else:
             self.addGoal(mWidth, mHeight)
-    def checkSolvable():
-        
+
+    #By finding any paths of obstacles and removing an obstacle so that any point on the
+    #board can be reached
+    def makeSolvable():
+        for j in range(0, self.obstacles.len()-1):
+            start = self.obstacles[j]
+            startX = a[0]
+            startY = a[1] 
+            path.append(start)
+            for i in range(0, self.obstacles.len()-1):
+                a = self.obstacles[i]
+                x = a[0]
+                y = a[1]
+                if (startX-1 <= x <= startX+1) and (startY-1 <= y <= startY-1) and (i != j):
+                    path.append(a)
+                    if path.len() > 2
+                        #checks to see if complete if so then a block needs to removed from grid
+                
 
     # Renders game grid to display
     def draw(self):
