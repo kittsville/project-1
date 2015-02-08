@@ -78,7 +78,6 @@ while True:
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            print 'Quiting Game'
             pygame.display.quit()
             sys.exit()
         
@@ -125,11 +124,9 @@ while True:
             if gameGrid.isStar(playerX, playerY):
                 gameGrid.grid[playerY][playerX] = 0
                 gameGrid.starCount -= 1
-                print "stars left: {}".format(gameGrid.starCount)
 
             # if players location is the goal and all stars been collected. Level is completed and new must begin
             if gameGrid.isGoal(playerX, playerY) and gameGrid.starCount == 0:
-                print "Level completed. Increasing game difficulty"
                 active_sprites.remove(thePlayer)
                 playerPlaced = False
                 
@@ -170,7 +167,6 @@ while True:
                         if row[x].collidepoint(pos):
                             thePlayer.changeX = y - playerX
                             thePlayer.changeY = x - playerY
-                            print "Attempted move %d, %d" %(thePlayer.changeX, thePlayer.changeY)
                             if(-1 <= thePlayer.changeX <= 1) and (-1 <= thePlayer.changeY <= 1):
                                 thePlayer.update()
                             else:
@@ -225,7 +221,6 @@ while True:
         frames += 1
 
     if(currentTime <= 0 and playerPlaced):
-        print "Out of time!"
         active_sprites.remove(thePlayer)
         playerPlaced = False
         startMenu.active = True
