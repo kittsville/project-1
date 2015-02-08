@@ -35,7 +35,8 @@ class Matrix:
         obstacleThreshold   = self.obstacleDensity * 10                     # Modifies density for use by the random obstacle placer
         starThreshold       = self.starDensity * 10                         # Modifies density for use by the random star placer
         self.grid           = []                                            # Reset grid
-        
+        self.obstacles      = []
+
         print 'Generating Grid' # Debugging code, leave for now
         
         for y in range(0, mHeight):
@@ -44,6 +45,7 @@ class Matrix:
                 if self.obstacleCount < maxObstacles and randint(1, 11) < obstacleThreshold:
                     row.append(1)
                     self.obstacleCount += 1
+                    obstacles.append((x,y))
                 elif self.starCount < maxStars and randint(1, 11) < starThreshold:
                     row.append(2)
                     self.starCount += 1
@@ -94,7 +96,9 @@ class Matrix:
             self.goalLocation = [x, y]
         else:
             self.addGoal(mWidth, mHeight)
-    
+    def checkSolvable():
+        
+
     # Renders game grid to display
     def draw(self):
         # Creates surface to render game grid to
