@@ -33,7 +33,7 @@ gamePaused = True
 playerPlaced = False
 
 # Creates all game menus (currently just start menu)
-startMenu = menu.Menu(['Start','Options','Quit'], screen)
+startMenu = menu.Menu(['Start','Quit'], screen)
 
 # Activates start menu, so it displays on game start up
 startMenu.active = True
@@ -107,13 +107,9 @@ while True:
                     gameGrid = matrix.Matrix(gridSize, gridSize, screen)
                     resizeWindow(gameGrid)
                     currentTime = totalTime
-
-                # If options were selected, loads options menu
-                elif selectedMenuItem is 1:
-                    print 'Options selected'
                 
                 # If quit was selected, quits game
-                elif selectedMenuItem is 2:
+                elif selectedMenuItem is 1:
                     pygame.display.quit()
                     sys.exit()
 
