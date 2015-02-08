@@ -14,7 +14,7 @@ from pygame.locals import *
 pygame.init()
 
 # Create an 800x600 sized screen
-screen = pygame.display.set_mode([800, 600])
+screen = pygame.display.set_mode((600, 400))
 
 # Set the title of the window
 pygame.display.set_caption("Wumpus World Simulation")
@@ -53,6 +53,9 @@ currentTime = totalTime
 
 frames = 0
 
+# Current grid size, incremented with each level
+gridSize = 14
+
 #draws the provided string to a given location on a surface by first getting the games font from the menu class
 #then by creating another surface on which to write the text
 #the new surface is then placed in the specified spot.
@@ -60,6 +63,15 @@ def drawInfo(output, outputLocation):
     currentFont = pygame.font.Font(startMenu.fontPath, startMenu.fontSize)
     outputText = currentFont.render(output,1, startMenu.textColour, BACKGROUND)
     screen.blit(outputText, outputLocation)
+
+# Resizes window to accommodate new grid size
+def resizeWindow(gameGrid):
+    width   = gameGrid.pixelWidth
+    height  = gameGrid.pixelHeight + 45 # Adds height to include 'Place robot/time left'
+    
+    pygame.display.set_mode((width, height))
+    
+    
 
 # Main game loop
 while True:
@@ -92,7 +104,8 @@ while True:
                     startMenu.active = False
                     gamePaused = False
                     # Generates game grid
-                    gameGrid = matrix.Matrix(16, 16, screen)
+                    gameGrid = matrix.Matrix(gridSize, gridSize, screen)
+                    resizeWindow(gameGrid)
                     currentTime = totalTime
 
                 # If options were selected, loads options menu
@@ -118,12 +131,23 @@ while True:
                 gameGrid.starCount -= 1
                 print "stars left: {}".format(gameGrid.starCount)
 
-            # if players location is the goal and all stars been collected. It means the game has been completed.
+            # if players location is the goal and all stars been collected. Level is completed and new must begin
             if gameGrid.isGoal(playerX, playerY) and gameGrid.starCount == 0:
-                print "you completed the game!"
+                print "Level completed. Increasing game difficulty"
                 active_sprites.remove(thePlayer)
                 playerPlaced = False
-                startMenu.active = True
+                
+                # Deletes completed levels game grid
+                del gameGrid
+                
+                # Reduces time available to complete game in and increases game grid size
+                totalTime   -= 4
+                gridSize    += 1
+                
+                # Generates game grid
+                gameGrid = matrix.Matrix(gridSize, gridSize, screen)
+                resizeWindow(gameGrid)
+                currentTime = totalTime
 
             # player movement
             if event.type == KEYDOWN and not gamePaused:

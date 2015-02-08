@@ -3,25 +3,19 @@ from random import randint                  # Used to spread obstacles and stars
 
 # Generates the game grid and handles interactions with it
 class Matrix:
-    grid                = []                # Game grid
-    gridObjects         = []                # Physical implementation of grid. Used to render self.grid
-    goalLocation        = []                # Location of player goal, where the player must go having collected all the stars
-    gameSurface         = pygame.Surface    # Placeholder game surface to draw game grid on
-    Width               = 0                 # Width of grid in number of grid squares
-    Height              = 0                 # Height of grid in number of grid squares
-    pixelWidth          = 0                 # Width of grid in pixels
-    pixelHeight         = 0                 # Height of grid in pixels
-    pixelMargin         = 1                 # The number of pixels to separate grid squares vertically and horizontally
-    obstacleDensity     = 0.3               # Amount of obstacle blocks to place in the grid to 1 d.p. 1 = All obstacles, 0 = No obstacles
-    starDensity         = 0.2               # Amount of stars to place in the grid to 1 d.p. 1 = All stars, 0 = No stars
-    gridSquareSize      = 32                # Height and width, in pixels, of each game grid square
-    
+    obstacleDensity     = 0.3                                           # Amount of obstacle blocks to place in the grid to 1 d.p. 1 = All obstacles, 0 = No obstacles
+    starDensity         = 0.2                                           # Amount of stars to place in the grid to 1 d.p. 1 = All stars, 0 = No stars
+
     # Holds spatial data of each game grid square
     class gridSquare:
         squareRect  = pygame.Rect       # Holds square's coordinates
     
     # Generates game grid on matrix initialisation
     def __init__(self, mWidth, mHeight, gameSurface):
+        self.gridObjects    = []                                            # Physical implementation of grid. Used to render self.grid
+        self.goalLocation   = []                                            # Location of player goal, where the player must go having collected all the stars
+        self.pixelMargin    = 1                                             # The number of pixels to separate grid squares vertically and horizontally
+        self.gridSquareSize = 32                                            # Height and width, in pixels, of each game grid square
         self.Width          = mWidth
         self.Height         = mHeight
         self.pixelWidth     = (mWidth * ( self.gridSquareSize + 1 )) + 1    # Calculates total width of grid in pixels
