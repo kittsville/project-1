@@ -30,7 +30,6 @@ class Matrix:
         starThreshold       = self.starDensity * 10                         # Modifies density for use by the random star placer
         self.grid           = []                                            # Reset grid
 
-        print 'Generating Grid' # Debugging code, leave for now
         
         for y in range(0, mHeight):
             row = []
@@ -48,9 +47,6 @@ class Matrix:
 
         # Adds the goal, the square the player must travel to on level completion
         self.addGoal(mWidth, mHeight)
-        for y in range(0, mHeight):
-            v = self.grid[y]
-            print v
     
     # Returns if a wall exists at the given position
     def isWall(self,xPos, yPos):
